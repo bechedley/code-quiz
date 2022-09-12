@@ -1,0 +1,78 @@
+:root {
+    /* declare variables for styling colours */
+    --blue: #34add9;
+    --dark: #707070;
+    --light: #fff;
+    --green: #03f7ce;
+    --pink: #f36b8b;
+  }
+
+* {
+    box-sizing:border-box;
+  }
+
+body {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+    font-family: 'Proxima Nova', 'Montserrat', 'Lato', 'Raleway', sans-serif;
+    font-size: 16px;
+    padding: 0 2%;
+    margin: 5%;
+    color: var(--dark);
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2%;
+    color: var(--blue);
+  }
+
+
+  h1 {
+    font-style: bold;
+    font-size: 1.75em;
+  }
+  
+  h2 {
+    font-style: bold;
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.25em;
+    color: var(--blue);
+  }
+
+  h4 {
+    font-size: 1.125em;
+  }
+
+  button {
+    background-color: var(--pink);
+    color: var(--light);
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10%;
+    height:40px;
+    padding : 0.5rem;
+  }
+
+  .heading {
+    display: flex;
+    justify-content: center;
+  }
+
+  .info {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5%;
+  }
+
+  .start-button {
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+  }
