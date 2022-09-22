@@ -4,8 +4,8 @@
     <title>Javascript Code Quiz</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="reset.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <header>
@@ -25,7 +25,7 @@
 
       <section>
         <div class="info">
-            <p>Information on the quiz parameters here</p>
+            <p>Click start to begin. Correct answers will add 5 seconds to your time. Incorrect answers will subtract 5 seconds from your time.</p>
       </div>
       <div class="start" content-state="visible">
       <button class="start-button">Start</button>
@@ -33,12 +33,14 @@
         <div class="question-card">
             <h2 class="questions"></h2>
             <div class = "answers">
+            <div class = "verify"><p></p>
+            </div>
           </div>
           </div>
           </div>
         </div>
       </section>
     </main>
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
   </body>
 </html>
