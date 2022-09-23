@@ -28,6 +28,7 @@ var scores = [];
 // Set score to timer result
 var scoreResult = timerCount;
 
+// Set score input value to equal timer
 result.setAttribute("value", scoreResult);
 
 
@@ -269,21 +270,21 @@ function verifyAnswerD () {
 answerA.addEventListener("click", function(event){
     event.stopPropagation();
     verifyAnswerA();
-})
+});
 answerB.addEventListener("click", function(event){
     event.stopPropagation();
     verifyAnswerB();
-})
+});
 answerC.addEventListener("click", function(event){
     event.stopPropagation();
     verifyAnswerC();
-})
+});
 answerD.addEventListener("click", function(event){
     event.stopPropagation();
     verifyAnswerD();
-})
+});
 
-// Create functions to action results
+// Create functions to action correct or incorrect results
 function answerCorrect() {
     // Add 5 seconds to timer
     timerCount = timerCount + 5;
@@ -323,7 +324,7 @@ function startTimer() {
         timerElement.textContent = timerCount;
         if (timerCount >= 0) {
             //ends quiz if time runs out
-            } else if (timerCount <= 0) {
+            } else if (timerCount === 0) {
                 endQuiz;
         }
     },1000);
@@ -335,6 +336,7 @@ function storeScores() {
     localStorage.setItem("scores", JSON.stringify(scores));
   }
 
+// Create an end quiz function to save scores
 function endQuiz() {
 
     // Set score to timer result
@@ -353,6 +355,7 @@ function endQuiz() {
     scoreUpdate.textContent = "Your final score is " + scoreResult;
     result.setAttribute("value", scoreResult);
 }
+    // Push save form inputs to array to save in local storage
     submitButton.addEventListener("click", function(event) {
         event.preventDefault();
         
@@ -372,13 +375,14 @@ function endQuiz() {
     
     storeScores ();
     
+    // Test functionality by logging array to console
     console.log(scores);
     
     renderScores();
     
     });
 
-
+// Create function to render scores to the leaderboard
 function renderScores() {
     // Update text content and move to top
     info.setAttribute("style", "visibility: hidden;")
@@ -388,12 +392,13 @@ function renderScores() {
     submitButton.setAttribute("style", "visibility: hidden;");
     leaderboardText.textContent = "Highscores";
 
+    // Add scores to leaderboard and clear Score List content
     heading.after(leaderboard);
-    // Add scores to leaderboard
     scoreList.innerHTML = '';
 
     leaderboard.appendChild(scoreList);
 
+    // Create for loop to render each score result to a new line item
     for (var i = 0; i < scores.length; i++) {
         var score = scores[i];
 

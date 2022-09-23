@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <!--Highscores leaderboard-->
+      <!--Highscores View-->
       <div id= "highscores" href="#view-highscores">View Highscores</div>
       <!--Timer-->
       <div class= "timer">
@@ -30,13 +30,16 @@
         <div class="info">
             <p>Click start to begin. Correct answers will add 5 seconds to your time. Incorrect answers will subtract 5 seconds from your time.</p>
         </div>
+        <!--Leaderboard for highscores-->
       <div id="leaderboard">
         <h2 id="leaderboard-text"></h2>
         <ul id="score-list"></ul>
       </div>
+      <!--Start Button-->
       <div class="start" content-state="visible">
       <button class="start-button">Start</button>
       </div>
+      <!--Questions and answers-->
         <div class="question-card">
             <h2 class="questions"></h2>
             <div class = "answers">
@@ -44,6 +47,7 @@
             </div>
           </div>
           </div>
+          <!--Score Save Form-->
           <div class="saveScore">
             <h2 id="done">You're Done!</h2>
             <p id="score-update"></p>

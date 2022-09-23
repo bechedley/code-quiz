@@ -131,6 +131,7 @@ button {
   justify-content: center;
   margin: 2%;
 }
+
 .question-card {
   display: block;
   visibility: hidden;
@@ -199,6 +200,37 @@ button {
   #leaderboard li {
     background-color: var(--blue);
     color: var(--light);
-    margin: 5px;
+    margin: 1%;
   }
 
+  /* Updated flex properties for mobile responsiveness */
+  @media screen and (max-width: 700px) {
+    header {
+      flex-direction: column;
+      flex-wrap: wrap;
+      padding: 2%;
+      margin: 2%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 2%;
+        margin: auto;
+    }
+
+    .question-card {
+      display: block;
+      visibility: hidden;
+      max-width: 100%;
+      justify-content: center;
+      padding: 2%;
+      margin: 2%;
+    }
+
+    .timer {
+      padding: 5% 1%;
+    }
