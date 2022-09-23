@@ -5,22 +5,30 @@ var questionsElement = document.querySelector(".questions");
 var answersElement = document.querySelector(".answers");
 var verify = document.querySelector(".verify");
 var info = document.querySelector(".info");
-var highscores = document.querySelector(".highscores");
+var highscores = document.querySelector("#highscores");
 var saveScore = document.querySelector(".saveScore")
+var scoreForm = document.querySelector("#score-form");
 var scoreUpdate = document.querySelector("#score-update");
 var done = document.querySelector("#done");
-var initials = document.querySelector("#initials");
-var submit = document.querySelector("#submit");
-var leaderboard = document.querySelector("#leaderboard");
+var user = document.getElementById("user");
+var submitButton = document.getElementById("submit");
+var result = document.getElementById("result");
+var leaderboard = document.getElementById("leaderboard");
+var leaderboardText = document.querySelector("#leaderboard-text")
 var startElement = document.querySelector(".start");
 var heading = document.querySelector(".heading");
-var scoreList = document.querySelector("#score-list");
+var scoreList = document.getElementById("score-list");
 var startButton = document.querySelector(".start-button");
 
 var timer;
 var timerCount;
 var isDone = false;
 index = 0;
+// Set score to timer result
+var scoreResult = timerCount;
+
+result.setAttribute("value", scoreResult);
+
 
 // Create variables to house answer options
 var answerList = document.createElement("ul");
@@ -137,10 +145,20 @@ var questionList = [
         correctAnswer: "a"
     },
 ]
-// Create function to initiate quiz
+
+// Create a function to load saved scores on webpage load
+function init () {
+
+    var storedScores = JSON.parse(localStorage.getItem("scores"));
+    if (storedScores !== null) {
+        scores = storedScores;
+      }
+}
+
+// Create function to start quiz
 function startQuiz() {
 // Sets timer count to 100
-    timerCount = 100;
+    timerCount = 50;
 // Prevents start button from being clicked when round is in progress
     startButton.setAttribute("style", "display:none;")
     questionCard.setAttribute("style", "display:none;")
@@ -311,8 +329,11 @@ function startTimer() {
 }
 
 function endQuiz() {
-    var score = timerCount
-    clearInterval();
+
+    // Set score to timer result
+    var scoreResult = timerCount;
+    clearInterval(scoreResult);
+    timerElement.setAttribute("style","display:none;")
     // Hide questions and info
     questionCard.setAttribute("style", "visibility: hidden;")
     info.setAttribute("style", "visibility: hidden;")
@@ -320,38 +341,74 @@ function endQuiz() {
     heading.after(saveScore);
     saveScore.setAttribute("style", "visibility: visible;");
     done.setAttribute("style", "visibility: visible;");
-    initials.setAttribute("style", "visibility: visible;");
-    submit.setAttribute("style", "visibility: visible;");
-    scoreUpdate.textContent = "Your final score is " + score;
+    user.setAttribute("style", "visibility: visible;");
+    submitButton.setAttribute("style", "visibility: visible;");
+    scoreUpdate.textContent = "Your final score is " + scoreResult;
+    result.setAttribute("value", scoreResult);
 
-    
-    submit.addEventListener("click", function(event) {
+    submitButton.addEventListener("click", function(event) {
         event.preventDefault();
-
-    var save = {
-        initials:initials.ariaValueMax.trim()
+        
+    var scores =  {
+        user: user.value.trim(),
+        result: result.value.trim()
     };
-
-    localStorage.setItem("save", JSON.stringify(save));
     
-    highscoresShow();
+    localStorage.setItem("scores", JSON.stringify(scores));
+    
+    console.log(scores);
+    
+    renderScores();
+    
+    });
+}
 
-})};
+function renderScores() {
+    // Update text content and move to top
+    info.setAttribute("style", "visibility: hidden;")
+    saveScore.setAttribute("style", "visibility: hidden;");
+    done.setAttribute("style", "visibility: hidden;");
+    user.setAttribute("style", "visibility: hidden;");
+    submitButton.setAttribute("style", "visibility: hidden;");
+    leaderboardText.textContent = "Highscores";
+
+    heading.after(leaderboard);
+    // Add scores to leaderboard
+    scoreList.innerHTML = '';
+
+    leaderboard.appendChild(scoreList);
+    var scoreLi = document.createElement("li");
+    scoreLi.setAttribute("id", "leaderboard");
+
+    var storedScores = JSON.parse(localStorage.getItem("scores"));
+
+    // If scores were retrieved from localStorage, update the scores array to it
+    if (storedScores !== null) {
+      scores = storedScores;
+      var scores = [];
+
+      scoreLi.textContent = storedScores.user + " - " + storedScores.result;
+      scoreList.appendChild(scoreLi);
+
+    console.log(storedScores.user + " - " + storedScores.result);
+    }
+
+    // Start quiz from leaderboard
+    leaderboard.after(startButton);
+
+}
 
 function highscoresShow(){
-    leaderboard.textContent = "Highscores";
-    heading.after(leaderboard);
 
-    // Retrieve saved scores
-    var storedSave = JSON.parse(localStorage.getItem("save"));
-    
-    if (storedSave !== null) {
-      save = storedSave;
-    }
-    // TODO: Describe the purpose of the following line of code.
-    renderSave();
+    renderScores();
   }
-}
+
 
 // Attach event listener to start button to call startQuiz function on click
 startButton.addEventListener("click", startQuiz);
+
+// Add event listener to View Highscores to call function to show leaderboard
+highscores.addEventListener("click", highscoresShow);
+
+// Load saved scores
+init();

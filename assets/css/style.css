@@ -162,7 +162,7 @@ button {
   text-align: center;
 }
 
-#initials {
+#user {
     display:block;
     visibility: hidden;
     background-color: var(--light);
@@ -189,3 +189,15 @@ button {
   #submit {
     visibility: hidden;
   }
+
+  #leaderboard {
+    text-align: center;
+    justify-content: center;
+  }
+
+  #leaderboard li {
+    background-color: var(--blue);
+    color: var(--light);
+    margin: 5px;
+  }
+
