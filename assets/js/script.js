@@ -322,10 +322,9 @@ function startTimer() {
     timer = setInterval(function(){
         timerCount--;
         timerElement.textContent = timerCount;
-        if (timerCount >= 0) {
-            //ends quiz if time runs out
-            } else if (timerCount === 0) {
-                endQuiz;
+        if (timerCount === 0) {
+                clearInterval();
+                endQuiz();
         }
     },1000);
 
