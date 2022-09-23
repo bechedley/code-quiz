@@ -24,6 +24,7 @@ var timer;
 var timerCount;
 var isDone = false;
 index = 0;
+var scores = [];
 // Set score to timer result
 var scoreResult = timerCount;
 
@@ -147,9 +148,10 @@ var questionList = [
 ]
 
 // Create a function to load saved scores on webpage load
-function init () {
+function init() {
 
     var storedScores = JSON.parse(localStorage.getItem("scores"));
+
     if (storedScores !== null) {
         scores = storedScores;
       }
@@ -328,6 +330,11 @@ function startTimer() {
 
 }
 
+function storeScores() {
+    // Stringify and set key in localStorage to scores array
+    localStorage.setItem("scores", JSON.stringify(scores));
+  }
+
 function endQuiz() {
 
     // Set score to timer result
@@ -345,23 +352,32 @@ function endQuiz() {
     submitButton.setAttribute("style", "visibility: visible;");
     scoreUpdate.textContent = "Your final score is " + scoreResult;
     result.setAttribute("value", scoreResult);
-
+}
     submitButton.addEventListener("click", function(event) {
         event.preventDefault();
         
-    var scores =  {
+    var scoresText =  {
         user: user.value.trim(),
         result: result.value.trim()
-    };
+    }; 
+
+    if (scoresText === "") {
+        return;
+    }
+
+    scores.push(scoresText);
+    user.value = "";
+    result.value = "";
+
     
-    localStorage.setItem("scores", JSON.stringify(scores));
+    storeScores ();
     
     console.log(scores);
     
     renderScores();
     
     });
-}
+
 
 function renderScores() {
     // Update text content and move to top
@@ -377,38 +393,42 @@ function renderScores() {
     scoreList.innerHTML = '';
 
     leaderboard.appendChild(scoreList);
+
+    for (var i = 0; i < scores.length; i++) {
+        var score = scores[i];
+
     var scoreLi = document.createElement("li");
     scoreLi.setAttribute("id", "leaderboard");
 
-    var storedScores = JSON.parse(localStorage.getItem("scores"));
+    scoreLi.textContent = score.user + " ____scored____ " + score.result;
+    scoreLi.setAttribute("data-index", i);
 
-    // If scores were retrieved from localStorage, update the scores array to it
-    if (storedScores !== null) {
-      scores = storedScores;
-      var scores = [];
+    scoreList.appendChild(scoreLi);
 
-      scoreLi.textContent = storedScores.user + " - " + storedScores.result;
-      scoreList.appendChild(scoreLi);
-
-    console.log(storedScores.user + " - " + storedScores.result);
     }
 
     // Start quiz from leaderboard
     leaderboard.after(startButton);
+    startButton.setAttribute("style", "display:visible;")
+    questionCard.setAttribute("style", "display:none;")
+    saveScore.setAttribute("style", "display: none;")
+    startButton.disabled = false;
+    startButton.textContent = "Try Again";
+
+    // Attach event listener to reload page on click
+    startButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        location.reload();
+    });
 
 }
-
-function highscoresShow(){
-
-    renderScores();
-  }
 
 
 // Attach event listener to start button to call startQuiz function on click
 startButton.addEventListener("click", startQuiz);
 
 // Add event listener to View Highscores to call function to show leaderboard
-highscores.addEventListener("click", highscoresShow);
+highscores.addEventListener("click", renderScores);
 
 // Load saved scores
 init();
