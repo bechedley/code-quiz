@@ -1,5 +1,5 @@
 :root {
-  /* declare variables for styling colours */
+/* declare variables for styling colours */
   --blue: #34add9;
   --dark: #707070;
   --light: #fff;
@@ -70,7 +70,7 @@ li {
   display: flex;
   float: center;
   padding: 1%;
-  margin: 1%, 1%;
+  margin: 1% 1%;
 }
 
 .answer-button {
@@ -164,73 +164,74 @@ button {
 }
 
 #user {
-    display:block;
-    visibility: hidden;
-    background-color: var(--light);
-    border: 1px solid var(--dark);
-    border-radius: 8px;
-    color: var(--dark);
-    font-size: 1em;
-    letter-spacing: 0.21px;
-    line-height: 16px;
-    max-width: 80%;
-    padding: 20px 60px 20px 20px;
-    text-align: left;
-    transition-duration: 0.15s;
-    transition-property: background-color;
-    transition-timing-function: linear;
-    margin-top: 0.6em;
+  display:block;
+  visibility: hidden;
+  background-color: var(--light);
+  border: 1px solid var(--dark);
+  border-radius: 8px;
+  color: var(--dark);
+  font-size: 1em;
+  letter-spacing: 0.21px;
+  line-height: 16px;
+  max-width: 80%;
+  padding: 20px 60px 20px 20px;
+  text-align: left;
+  transition-duration: 0.15s;
+  transition-property: background-color;
+  transition-timing-function: linear;
+  margin-top: 0.6em;
+}
+
+#done {
+  text-align: center;
+  visibility: hidden;
+}
+
+#submit {
+  visibility: hidden;
+}
+
+#leaderboard {
+  display: block;
+  text-align: center;
+  justify-content: center;
+}
+
+#leaderboard li {
+  background-color: var(--blue);
+  color: var(--light);
+  margin: 1%;
+}
+
+/* Updated flex properties for mobile responsiveness */
+@media screen and (max-width: 700px) {
+
+  header {
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 2%;
+    margin: 2%;
   }
 
-  #done {
-    text-align: center;
-    visibility: hidden;
-  }
-
-  #submit {
-    visibility: hidden;
-  }
-
-  #leaderboard {
-    display: block;
-    text-align: center;
+  body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    padding: 2%;
+    margin: auto;
   }
 
-  #leaderboard li {
-    background-color: var(--blue);
-    color: var(--light);
-    margin: 1%;
+  .question-card {
+    display: block;
+    visibility: hidden;
+    max-width: 100%;
+    justify-content: center;
+    padding: 2%;
+    margin: 2%;
   }
 
-  /* Updated flex properties for mobile responsiveness */
-  @media screen and (max-width: 700px) {
-    header {
-      flex-direction: column;
-      flex-wrap: wrap;
-      padding: 2%;
-      margin: 2%;
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        padding: 2%;
-        margin: auto;
-    }
-
-    .question-card {
-      display: block;
-      visibility: hidden;
-      max-width: 100%;
-      justify-content: center;
-      padding: 2%;
-      margin: 2%;
-    }
-
-    .timer {
-      padding: 5% 1%;
-    }
+  .timer {
+    padding: 5% 1%;
+  }
