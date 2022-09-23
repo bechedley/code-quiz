@@ -68,9 +68,9 @@ h4 {
 
 li {
   display: flex;
-  justify-content: center;
-  padding: 1.5%;
-  margin: 1%, 5%;
+  float: center;
+  padding: 1%;
+  margin: 1%, 1%;
 }
 
 .answer-button {
@@ -123,6 +123,7 @@ button {
   text-align: center;
   justify-content: center;
   padding-bottom: 5%;
+  visibility: visible;
 }
 
 .start {
@@ -132,6 +133,7 @@ button {
 }
 .question-card {
   display: block;
+  visibility: hidden;
   max-width: 100%;
   justify-content: center;
 }
@@ -140,6 +142,12 @@ button {
   display: flex;
   flex-wrap: wrap;
   text-align: center;
+}
+
+.save-score {
+  display:flex;
+  justify-content: left;
+  
 }
 
 #correct {
@@ -153,3 +161,31 @@ button {
   font-style: italic;
   text-align: center;
 }
+
+#initials {
+    display:block;
+    visibility: hidden;
+    background-color: var(--light);
+    border: 1px solid var(--dark);
+    border-radius: 8px;
+    color: var(--dark);
+    font-size: 1em;
+    letter-spacing: 0.21px;
+    line-height: 16px;
+    max-width: 80%;
+    padding: 20px 60px 20px 20px;
+    text-align: left;
+    transition-duration: 0.15s;
+    transition-property: background-color;
+    transition-timing-function: linear;
+    margin-top: 0.6em;
+  }
+
+  #done {
+    text-align: center;
+    visibility: hidden;
+  }
+
+  #submit {
+    visibility: hidden;
+  }

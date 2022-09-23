@@ -10,6 +10,8 @@
   <body>
     <header>
       <div class= "highscores">View Highscores</div>
+      <h2 id="leaderboard"></h2>
+      <ul id="score-list"></ul>
       <div class= "timer">
         <div class = "timer-text">
         <div class="timer-count">0</div>
@@ -27,6 +29,7 @@
         <div class="info">
             <p>Click start to begin. Correct answers will add 5 seconds to your time. Incorrect answers will subtract 5 seconds from your time.</p>
       </div>
+    </div>
       <div class="start" content-state="visible">
       <button class="start-button">Start</button>
       </div>
@@ -37,8 +40,16 @@
             </div>
           </div>
           </div>
+          <div class="saveScore">
+            <h2 id="done">You're Done!</h2>
+            <p id="score-update"></p>
+            <form method="POST">
+            <div class="input-group"></div>
+            <label for="initials"></label>
+            <input type="text" id="initials" placeholder="Enter your initials"/>
+            <button id="submit">Submit</button>
+            </form>
           </div>
-        </div>
       </section>
     </main>
     <script src="assets/js/script.js"></script>
