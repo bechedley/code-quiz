@@ -9,9 +9,9 @@
   </head>
   <body>
     <header>
-      <div class= "highscores">View Highscores</div>
-      <h2 id="leaderboard"></h2>
-      <ul id="score-list"></ul>
+      <!--Highscores leaderboard-->
+      <div id= "highscores" href="#view-highscores">View Highscores</div>
+      <!--Timer-->
       <div class= "timer">
         <div class = "timer-text">
         <div class="timer-count">0</div>
@@ -26,10 +26,14 @@
       </section>
 
       <section>
+        <!--Info text-->
         <div class="info">
             <p>Click start to begin. Correct answers will add 5 seconds to your time. Incorrect answers will subtract 5 seconds from your time.</p>
+        </div>
+      <div id="leaderboard">
+        <h2 id="leaderboard-text"></h2>
+        <ul id="score-list"></ul>
       </div>
-    </div>
       <div class="start" content-state="visible">
       <button class="start-button">Start</button>
       </div>
@@ -43,10 +47,12 @@
           <div class="saveScore">
             <h2 id="done">You're Done!</h2>
             <p id="score-update"></p>
-            <form method="POST">
+            <form id="score-form" method="POST">
             <div class="input-group"></div>
-            <label for="initials"></label>
-            <input type="text" id="initials" placeholder="Enter your initials"/>
+            <label for="user"></label>
+            <input type="text" id="user" name="user" placeholder="Enter your initials"/>
+            <label for="result"></label>
+            <input type="hidden" id="result" name="result"/>
             <button id="submit">Submit</button>
             </form>
           </div>
