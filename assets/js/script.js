@@ -4,12 +4,23 @@ var questionCard = document.querySelector(".question-card");
 var questionsElement = document.querySelector(".questions");
 var answersElement = document.querySelector(".answers");
 var verify = document.querySelector(".verify");
+var info = document.querySelector(".info");
+var highscores = document.querySelector(".highscores");
+var saveScore = document.querySelector(".saveScore")
+var scoreUpdate = document.querySelector("#score-update");
+var done = document.querySelector("#done");
+var initials = document.querySelector("#initials");
+var submit = document.querySelector("#submit");
+var leaderboard = document.querySelector("#leaderboard");
 var startElement = document.querySelector(".start");
+var heading = document.querySelector(".heading");
+var scoreList = document.querySelector("#score-list");
 var startButton = document.querySelector(".start-button");
 
 var timer;
 var timerCount;
 var isDone = false;
+index = 0;
 
 // Create variables to house answer options
 var answerList = document.createElement("ul");
@@ -18,7 +29,7 @@ var li2 = document.createElement("li");
 var li3 = document.createElement("li");
 var li4 = document.createElement("li");
 
-// Style answers with letter icons
+// Create answers with letter icons
 var circleA = document.createElement("div");
 var circleB = document.createElement("div");
 var circleC = document.createElement("div");
@@ -30,6 +41,38 @@ var answerB = document.createElement("button")
 var answerC = document.createElement("button")
 var answerD = document.createElement("button")
 
+// Style radio icons
+circleA.innerText = 'A';
+circleA.setAttribute("class", "radio");
+circleB.innerText = 'B';
+circleB.setAttribute("class", "radio");
+circleC.innerText = 'C';
+circleC.setAttribute("class", "radio");
+circleD.innerText = 'D';
+circleD.setAttribute("class", "radio");
+
+// Append elements to create clickable answer list
+questionCard.appendChild(answerList);
+answerList.appendChild(li1);
+answerList.appendChild(li2);
+answerList.appendChild(li3);
+answerList.appendChild(li4);
+
+li1.appendChild(circleA);
+li2.appendChild(circleB);
+li3.appendChild(circleC);
+li4.appendChild(circleD);
+
+li1.appendChild(answerA);
+li2.appendChild(answerB);
+li3.appendChild(answerC);
+li4.appendChild(answerD);
+
+// Style buttons
+answerA.setAttribute("class", "answer-button");
+answerB.setAttribute("class", "answer-button");
+answerC.setAttribute("class", "answer-button");
+answerD.setAttribute("class", "answer-button");
 
 // Create an array with the questions, answers and correct answer for each
 var questionList = [
@@ -94,75 +137,39 @@ var questionList = [
         correctAnswer: "a"
     },
 ]
-
+// Create function to initiate quiz
 function startQuiz() {
 // Sets timer count to 100
     timerCount = 100;
 // Prevents start button from being clicked when round is in progress
+    startButton.setAttribute("style", "display:none;")
+    questionCard.setAttribute("style", "display:none;")
+    saveScore.setAttribute("style", "display: none;")
     startButton.disabled = true;
-    startButton.setAttribute("style","display:none;")
 
 // Calls timer function
-    renderQuestions();
+    renderQuestion();
     startTimer();
 }
 
-function renderQuestions(){
-// Style answers with letter icons
-var circleA = document.createElement("div");
-var circleB = document.createElement("div");
-var circleC = document.createElement("div");
-var circleD = document.createElement("div");
-
-// Create clickable answer buttons
-var answerA = document.createElement("button")
-var answerB = document.createElement("button")
-var answerC = document.createElement("button")
-var answerD = document.createElement("button")
-
-// Style radio icons
-circleA.innerText = 'A';
-circleA.setAttribute("class", "radio");
-circleB.innerText = 'B';
-circleB.setAttribute("class", "radio");
-circleC.innerText = 'C';
-circleC.setAttribute("class", "radio");
-circleD.innerText = 'D';
-circleD.setAttribute("class", "radio");
-
-// Append elements to create clickable answer list
-answersElement.appendChild(answerList);
-answerList.appendChild(li1);
-answerList.appendChild(li2);
-answerList.appendChild(li3);
-answerList.appendChild(li4);
-
-li1.appendChild(circleA);
-li2.appendChild(circleB);
-li3.appendChild(circleC);
-li4.appendChild(circleD);
-
-li1.appendChild(answerA);
-li2.appendChild(answerB);
-li3.appendChild(answerC);
-li4.appendChild(answerD);
-
-// Style buttons
-answerA.setAttribute("class", "answer-button");
-answerB.setAttribute("class", "answer-button");
-answerC.setAttribute("class", "answer-button");
-answerD.setAttribute("class", "answer-button");
-
-// Insert question and answer text
-showQuestion();
 // Create function to display questions
-function showQuestion() {
+function renderQuestion() {
+    questionCard.setAttribute("style", "visibility: visible;")
 
-// Clear verify text
+// Clear textContent and reset answer button formatting
 verify.textContent = '';
-index = 0;
+answerA.textContent = '';
+answerB.textContent = '';
+answerC.textContent = '';
+answerD.textContent = '';
+answerA.setAttribute("style", "background-color: var(--light);");
+answerB.setAttribute("style", "background-color: var(--light);");
+answerC.setAttribute("style", "background-color: var(--light);");
+answerD.setAttribute("style", "background-color: var(--light);");
 
 let i = index;
+
+// Insert question and answer text
 
     questionsElement.textContent = questionList[i].question;
     answerA.textContent = questionList[i].answers.a;
@@ -173,15 +180,19 @@ let i = index;
 // Create a function to verify the answer clicked
 function verifyAnswerA () {
     if (index == 1 || index == 5) {
+        // Format answer button to reflect result
         answerA.setAttribute("style", "background-color: var(--green);");
         verify.textContent = "Correct!";
         verify.setAttribute("id", "correct");
-        answerCorrect();
+        // Two second delay to show result
+        setTimeout(() => {  answerCorrect(); }, 1000);
     } else {
+        // Format answer button to reflect result
         answerA.setAttribute("style", "background-color: var(--pink);");
         verify.textContent = "Wrong!";
         verify.setAttribute("id", "wrong");
-        answerWrong();
+        // Two second delay to show result
+        setTimeout(() => {  answerWrong(); }, 1000);
     }
 }
 
@@ -190,13 +201,13 @@ function verifyAnswerB () {
         answerB.setAttribute("style", "background-color: var(--green);");
         verify.textContent = "Correct!";
         verify.setAttribute("id", "correct");
-        answerCorrect();
+        setTimeout(() => {  answerCorrect(); }, 1000);
         return;
     } else {
         answerB.setAttribute("style", "background-color: var(--pink);");
         verify.textContent = "Wrong!";
         verify.setAttribute("id", "wrong");
-        answerWrong();
+        setTimeout(() => {  answerWrong(); }, 1000);
         return;
     }
 }
@@ -206,13 +217,13 @@ function verifyAnswerC () {
         answerC.setAttribute("style", "background-color: var(--green);");
         verify.textContent = "Correct!";
         verify.setAttribute("id", "correct");
-        answerCorrect();
+        setTimeout(() => {  answerCorrect(); }, 1000);
         return;
     } else {
         answerC.setAttribute("style", "background-color: var(--pink);");
         verify.textContent = "Wrong!";
         verify.setAttribute("id", "wrong");
-        answerWrong();
+        setTimeout(() => {  answerWrong(); }, 1000);
         return;
     }
 }
@@ -222,13 +233,13 @@ function verifyAnswerD () {
         answerD.setAttribute("style", "background-color: var(--green);");
         verify.textContent = "Correct!";
         verify.setAttribute("id", "correct");
-        answerCorrect();
+        setTimeout(() => {  answerCorrect(); }, 1000);
         return;
     } else {
         answerD.setAttribute("style", "background-color: var(--pink);");
         verify.textContent = "Wrong!";
         verify.setAttribute("id", "wrong");
-        answerWrong();
+        setTimeout(() => {  answerWrong(); }, 1000);
         return;
     }
 
@@ -252,18 +263,19 @@ answerD.addEventListener("click", function(event){
     verifyAnswerD();
 })
 
-}
-
+// Create functions to action results
 function answerCorrect() {
     // Add 5 seconds to timer
     timerCount = timerCount + 5;
     // Check if this is the last question
-    if (index == questionList.length) {
+    if (index == 5) {
         isDone = true;
+        endQuiz();
         return;
     } else {
     // Go to next question
     index ++;
+    renderQuestion();
     }
 }
 
@@ -271,12 +283,14 @@ function answerWrong() {
     // Remove 5 seconds from timer
     timerCount = timerCount - 5;
     // Check if this is the last question
-    if (index == questionList.length) {
+    if (index == 5) {
         isDone = true;
+        endQuiz();
         return;
     } else {
     // Go to next question
     index ++;
+    renderQuestion();
     }
 }
 
@@ -288,20 +302,55 @@ function startTimer() {
         timerCount--;
         timerElement.textContent = timerCount;
         if (timerCount >= 0) {
-            //tests if quiz has been won
-            if (isDone && timerCount > 0) {
-                winQuiz();
-            }
-
+            //ends quiz if time runs out
+            } else if (timerCount <= 0) {
+                endQuiz;
         }
     },1000);
 
 }
 
-function winQuiz() {
-    var score = timer
-    clearInterval(score);
+function endQuiz() {
+    var score = timerCount
+    clearInterval();
+    // Hide questions and info
+    questionCard.setAttribute("style", "visibility: hidden;")
+    info.setAttribute("style", "visibility: hidden;")
+    // Move to score to top
+    heading.after(saveScore);
+    saveScore.setAttribute("style", "visibility: visible;");
+    done.setAttribute("style", "visibility: visible;");
+    initials.setAttribute("style", "visibility: visible;");
+    submit.setAttribute("style", "visibility: visible;");
+    scoreUpdate.textContent = "Your final score is " + score;
 
+    
+    submit.addEventListener("click", function(event) {
+        event.preventDefault();
+
+    var save = {
+        initials:initials.ariaValueMax.trim()
+    };
+
+    localStorage.setItem("save", JSON.stringify(save));
+    
+    highscoresShow();
+
+})};
+
+function highscoresShow(){
+    leaderboard.textContent = "Highscores";
+    heading.after(leaderboard);
+
+    // Retrieve saved scores
+    var storedSave = JSON.parse(localStorage.getItem("save"));
+    
+    if (storedSave !== null) {
+      save = storedSave;
+    }
+    // TODO: Describe the purpose of the following line of code.
+    renderSave();
+  }
 }
 
 // Attach event listener to start button to call startQuiz function on click
