@@ -120,6 +120,7 @@ button {
 
 .info {
   display: flex;
+  text-align: center;
   justify-content: center;
   padding-bottom: 5%;
 }
@@ -138,5 +139,17 @@ button {
 .questions {
   display: flex;
   flex-wrap: wrap;
+  text-align: center;
+}
+
+#correct {
+  color: var(--green);
+  font-style: italic;
+  text-align: center;
+}
+
+#wrong {
+  color: var(--pink);
+  font-style: italic;
   text-align: center;
 }
